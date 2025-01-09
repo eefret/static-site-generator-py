@@ -33,6 +33,11 @@ class TestTextNodeToHTMLNode(unittest.TestCase):
             html_node.props,
             {"src": "https://www.boot.dev", "alt": "This is an image"},
         )
+    
+    def test_eq_url(self):
+        node = TextNode("This is an image", TextType.TEXT, "https://www.boot.dev")
+        node2 = TextNode("This is an image", TextType.TEXT, "https://www.boot.dev")
+        self.assertEqual(node, node2)
 
     def test_bold(self):
         node = TextNode("This is bold", TextType.BOLD)
