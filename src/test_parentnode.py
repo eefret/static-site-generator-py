@@ -6,7 +6,7 @@ class TestParentNode(unittest.TestCase):
     
     def test_to_html_success(self):
         node = ParentNode(tag="div", children=[ParentNode(tag="p", children=[LeafNode(tag="a", value="this is a link", props={"href": "https://www.google.com"})])])
-        self.assertEqual(node.to_html(), '<div ><p ><a href="https://www.google.com">this is a link</a></p></div>')
+        self.assertEqual(node.to_html(), '<div><p><a href="https://www.google.com">this is a link</a></p></div>')
         
     def test_to_html_fail(self):
         node = ParentNode(tag="div", children=None)
@@ -24,5 +24,9 @@ class TestParentNode(unittest.TestCase):
             node.to_html()
         self.assertEqual(str(context.exception), "ParentNode tag cannot be None")
         
+    def test_no_space_after_tag_on_starting_tag(self):
+        node = ParentNode(tag="div", children=[ParentNode(tag="p", children=[LeafNode(tag="a", value="this is a link", props={"href": "https://www.google.com"})])])
+        self.assertEqual(node.to_html(), '<div><p><a href="https://www.google.com">this is a link</a></p></div>')
+
 if __name__ == "__main__":
     unittest.main()
